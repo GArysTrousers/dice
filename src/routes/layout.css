@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+
+html {
+  @apply bg-black text-white;
+}
+
+button {
+  @apply cursor-pointer border-2 border-white bg-black;
+}
+
+button.md {
+  @apply px-2 py-1;
+}
+
+button.sm {
+  @apply px-0.5 text-sm;
+}
+
+button.active {
+  @apply invert;
+}
