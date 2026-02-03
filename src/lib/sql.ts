@@ -6,7 +6,7 @@ export class Sql {
 
 	constructor(filename: string) {
 		this.filename = filename;
-		this.db = new DatabaseSync(this.filename, { enableForeignKeyConstraints: true, allowBareNamedParameters: true });
+		this.db = new DatabaseSync(this.filename, { enableForeignKeyConstraints: true, allowUnknownNamedParameters: true });
 	}
 
 	open() {
