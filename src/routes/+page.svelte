@@ -32,6 +32,10 @@
   ];
 </script>
 
+<svelte:head>
+  <title>Dice</title>
+</svelte:head>
+
 <div class="flex flex-col items-center gap-5">
   <div class="grid gap-5 md:grid-cols-3">
     {#each links as link}
