@@ -11,6 +11,8 @@
 <div class="flex flex-col gap-5">
   <div class="flex flex-row items-center gap-3 text-neutral-400">
     <a href="/">Home</a>
+    <Fa icon={faChevronRight} />
+    <a href="/units">Factions</a>
   </div>
   <h1 class="text-3xl">Factions</h1>
   <div class="flex flex-col gap-1">

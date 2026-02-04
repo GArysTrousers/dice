@@ -22,6 +22,8 @@
     <a href="/units">Factions</a>
     <Fa icon={faChevronRight} />
     <a href="/units/{data.faction.id}">{data.faction.name}</a>
+    <Fa icon={faChevronRight} />
+    <a href="/units/{data.faction.id}/{data.datasheet.id}">{data.datasheet.name}</a>
   </div>
   <h1 class="text-2xl">{data.datasheet.name}</h1>
   <div class="max-w-4xl">
