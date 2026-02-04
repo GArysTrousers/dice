@@ -66,7 +66,7 @@
     </colgroup>
     <tbody>
       <tr class="font-bold border-b-2 text-center">
-        <td class="text-center">Turn</td>
+        <td class="text-center">CP</td>
         <td style="border-left: solid black 2px;">1</td>
         <td>2</td>
         <td>Bonus</td>
