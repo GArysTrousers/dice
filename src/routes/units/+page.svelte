@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Fa from 'svelte-fa';
+  import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
   let { data } = $props();
 </script>
 
@@ -6,9 +8,17 @@
   <title>Units</title>
 </svelte:head>
 
-{#each data.factions as faction}
-  <a href="/units/{faction.id}" class="">{faction.name}</a>
-{/each}
+<div class="flex flex-col gap-5">
+  <div class="flex flex-row items-center gap-3 text-neutral-400">
+    <a href="/">Home</a>
+  </div>
+  <h1 class="text-3xl">Factions</h1>
+  <div class="flex flex-col gap-1">
+    {#each data.factions as faction}
+      <a href="/units/{faction.id}" class="">{faction.name}</a>
+    {/each}
+  </div>
+</div>
 
 <style>
 </style>

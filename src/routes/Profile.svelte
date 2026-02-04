@@ -58,10 +58,11 @@
     <div>Options</div>
     <button class="sm {options.toHit.reroll === '1s' ? 'active' : ''}" onclick={() => (options.toHit.reroll = options.toHit.reroll === '1s' ? 'none' : '1s')}>Reroll 1s</button>
     <button class="sm {options.toHit.reroll === 'all' ? 'active' : ''}" onclick={() => (options.toHit.reroll = options.toHit.reroll === 'all' ? 'none' : 'all')}>Reroll All</button>
-    <button class="sm {options.toHit.lethal === true ? 'active' : ''}" onclick={() => (options.toHit.lethal = !options.toHit.lethal)}>Lethal Hits</button><button
+    <!-- <button class="sm {options.toHit.lethal === true ? 'active' : ''}" onclick={() => (options.toHit.lethal = !options.toHit.lethal)}>Lethal Hits</button>
+    <button
       class="sm {options.toHit.sustained === 1 ? 'active' : ''}"
       onclick={() => (options.toHit.sustained = options.toHit.sustained === 1 ? 0 : 1)}>Sustained Hits 1</button
-    >
+    > -->
   </div>
   <div class="flex w-48 flex-col gap-1">
     <h3>To Wound</h3>
@@ -76,7 +77,7 @@
     <div>Options</div>
     <button class="sm {options.toWound.reroll === '1s' ? 'active' : ''}" onclick={() => (options.toWound.reroll = options.toWound.reroll === '1s' ? 'none' : '1s')}>Reroll 1s</button>
     <button class="sm {options.toWound.reroll === 'all' ? 'active' : ''}" onclick={() => (options.toWound.reroll = options.toWound.reroll === 'all' ? 'none' : 'all')}>Reroll All</button>
-    <button class="sm {options.toWound.devistating === true ? 'active' : ''}" onclick={() => (options.toWound.devistating = !options.toWound.devistating)}>Devistating Wounds</button>
+    <!-- <button class="sm {options.toWound.devistating === true ? 'active' : ''}" onclick={() => (options.toWound.devistating = !options.toWound.devistating)}>Devistating Wounds</button> -->
   </div>
   <div class="flex w-48 flex-col gap-1">
     <h3>To Save</h3>

@@ -6,15 +6,16 @@
   let links = [
     {
       lable: 'Rules',
-      url: '/rules',
+      url: 'http://wahapedia.ru/wh40k10ed/the-rules/core-rules/',
       icon: faBookSkull,
     },
     {
       lable: 'Units',
       url: '/units',
       icon: faAddressCard,
-    },{
-      lable: 'Turn Timeline',
+    },
+    {
+      lable: 'Timeline',
       url: '/turn-timeline',
       icon: faHourglass,
     },

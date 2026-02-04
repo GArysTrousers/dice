@@ -2,6 +2,9 @@
 
 </script>
 
+<h2 class="text-5xl">Under Construction</h2>
+<h2 class="text-3xl">Avert your gaze</h2>
+<div class="py-3"></div>
 <div class="flex flex-col">
   <div class="flex flex-row">Command Phase</div>
   <div class="flex flex-row">Gain 1 CP each</div>

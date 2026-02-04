@@ -1,10 +1,9 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Electrolize&family=Geo:ital@0;1&family=Iceberg&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @import 'tailwindcss';
 
 html {
-  font-family: "JetBrains Mono", monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-optical-sizing: auto;
   @apply bg-black text-white;
 }
@@ -26,30 +25,34 @@ button.active {
 }
 
 .font-1 {
-  font-family: "JetBrains Mono", monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-optical-sizing: auto;
 }
 
 .font-2 {
-font-family: "Quantico", sans-serif;
+  font-family: 'Quantico', sans-serif;
 }
 
 .font-3 {
-  font-family: "Electrolize", sans-serif;
+  font-family: 'Electrolize', sans-serif;
 }
 
 .font-4 {
-  font-family: "Geo", sans-serif;
+  font-family: 'Geo', sans-serif;
 }
 
 .font-5 {
-  font-family: "Iceberg", sans-serif;
+  font-family: 'Iceberg', sans-serif;
 }
 
 a {
-  @apply underline
+  @apply underline;
 }
 
 li {
-    margin-left: 25px;
-  }
+  margin-left: 25px;
+}
+
+.kwb {
+  @apply text-neutral-300 underline;
+}

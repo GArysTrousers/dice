@@ -1,6 +1,7 @@
 import { writeFile } from 'node:fs/promises';
 import type { PageServerLoad } from './$types';
 import { DATA_DIR } from '$env/static/private';
+import { loadData } from '$lib/db';
 
 const baseUrl = 'https://wahapedia.ru/wh40k10ed';
 
@@ -33,4 +34,5 @@ export const load: PageServerLoad = async ({ fetch }) => {
     await writeFile(`${DATA_DIR}/wahapedia/${file}`, await res.text());
     console.log('done:', file);
   }
+  await loadData()
 };
