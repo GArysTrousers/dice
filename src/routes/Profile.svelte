@@ -23,7 +23,7 @@
     } else if (options.toHit.reroll === 'all') {
       f = f.add((options.toHit.roll - 1) * (7 - options.toHit.roll), 36);
     }
-    console.log('Hit', f.n + '/' + f.d);
+    // console.log('Hit', f.n + '/' + f.d);
 
     // to wound
     f = f.mul(7 - options.toWound.roll, 6);
@@ -32,11 +32,11 @@
     } else if (options.toWound.reroll === 'all') {
       f = f.add((options.toWound.roll - 1) * (7 - options.toWound.roll), 36);
     }
-    console.log('Wound', f.n + '/' + f.d);
+    // console.log('Wound', f.n + '/' + f.d);
 
     // to save
     f = f.mul(options.toSave.roll - 1, 6);
-    console.log('Save', f.n + '/' + f.d);
+    // console.log('Save', f.n + '/' + f.d);
 
     res.unsavedWoundChance = Number(f.n) / Number(f.d);
     return res;

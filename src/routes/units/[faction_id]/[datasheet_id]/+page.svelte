@@ -9,27 +9,45 @@
   let rangedWeapons = $derived(data.wargear.filter((v) => v.type === 'Ranged'));
   let meleeWeapons = $derived(data.wargear.filter((v) => v.type === 'Melee'));
   let stratagems = $derived(data.stratagems.filter((v) => !v.type.match('Boarding Actions – ')));
+
+  let innerWidth = $state(1080);
+  let isMobile = $derived(innerWidth < 768);
 </script>
+
+<svelte:window bind:innerWidth />
 
 <svelte:head>
   <title>{data.datasheet.name} | {data.faction.name}</title>
 </svelte:head>
 
-<div class="flex flex-col gap-5 max-w-4xl">
-  <div class="flex flex-row items-center gap-3 text-neutral-400">
-    <a href="/">Home</a>
-    <Fa icon={faChevronRight} />
-    <a href="/units">Factions</a>
-    <Fa icon={faChevronRight} />
-    <a href="/units/{data.faction.id}">{data.faction.name}</a>
-    <Fa icon={faChevronRight} />
-    <a href="/units/{data.faction.id}/{data.datasheet.id}">{data.datasheet.name}</a>
-  </div>
+<div class="flex max-w-4xl flex-col gap-5">
+  {#if isMobile}
+    <div class="flex flex-row items-center gap-3 text-neutral-400">
+      <a href="/">Home</a>
+      <Fa icon={faChevronRight} />
+      <a href="/units">Factions</a>
+      <Fa icon={faChevronRight} />
+      <a href="/units/{data.faction.id}">{data.faction.name}</a>
+    </div>
+  {:else}
+    <div class="flex flex-row items-center gap-3 text-neutral-400">
+      <a href="/">Home</a>
+      <Fa icon={faChevronRight} />
+      <a href="/units">Factions</a>
+      <Fa icon={faChevronRight} />
+      <a href="/units/{data.faction.id}">{data.faction.name}</a>
+      <Fa icon={faChevronRight} />
+      <a href="/units/{data.faction.id}/{data.datasheet.id}">{data.datasheet.name}</a>
+    </div>
+  {/if}
+
   <h1 class="text-2xl">{data.datasheet.name}</h1>
   <div class="max-w-4xl">
     <table class="w-full table-fixed">
       <colgroup>
-        <col width="auto" />
+        {#if !isMobile}
+          <col width="auto" />
+        {/if}
         <col width="55px" />
         <col width="55px" />
         <col width="55px" />
@@ -39,7 +57,9 @@
       </colgroup>
       <tbody>
         <tr class="font-bold">
-          <td>Model Name</td>
+          {#if !isMobile}
+            <td>Model Name</td>
+          {/if}
           <td class="stat">M</td>
           <td class="stat">T</td>
           <td class="stat">Sv</td>
@@ -48,16 +68,28 @@
           <td class="stat">OC</td>
         </tr>
         {#each data.models as model}
+          {#if isMobile}
+            <tr>
+              <td colspan="6">
+                <div class="flex flex-row">
+                  <div>{model.name}</div>
+                  <div class="ml-auto text-neutral-400">⌀<span class="text-xs">{model.base_size}</span></div>
+                </div>
+              </td>
+            </tr>
+          {/if}
           <tr>
-            <td>
-              <div class="flex flex-row">
-                <div>{model.name}</div>
-                <div class="ml-auto text-neutral-400">⌀<span class="text-xs">{model.base_size}</span></div>
-              </div>
-            </td>
+            {#if !isMobile}
+              <td>
+                <div class="flex flex-row">
+                  <div>{model.name}</div>
+                  <div class="ml-auto text-neutral-400">⌀<span class="text-xs">{model.base_size}</span></div>
+                </div>
+              </td>
+            {/if}
             <td class="stat">{model.M}</td>
             <td class="stat">{model.T}</td>
-            <td class="stat">{model.Sv} {model.inv_sv === '-' ? '' : `${model.inv_sv}++`}</td>
+            <td class="stat">{model.Sv} {@html model.inv_sv === '-' ? '' : `<br/>${model.inv_sv}++`}</td>
             <td class="stat">{model.W}</td>
             <td class="stat">{model.Ld}</td>
             <td class="stat">{model.OC}</td>
@@ -67,7 +99,7 @@
     </table>
   </div>
 
-  <div class="flex flex-row items-center text-neutral-400">
+  <div class="flex flex-col text-neutral-300">
     <div class="">Keywords:</div>
     <div class="text-xs">{data.keywords.map((v) => v.keyword).join(', ')}</div>
   </div>
@@ -75,7 +107,9 @@
   <div class="max-w-4xl">
     <table class="w-full table-fixed">
       <colgroup>
-        <col width="auto" />
+        {#if !isMobile}
+          <col width="auto" />
+        {/if}
         <col width="80px" />
         <col width="55px" />
         <col width="55px" />
@@ -85,7 +119,9 @@
       </colgroup>
       <tbody>
         <tr class="font-bold">
-          <td>Ranged Weapons</td>
+          {#if !isMobile}
+            <td>Ranged Weapons</td>
+          {/if}
           <td class="stat">Range</td>
           <td class="stat">A</td>
           <td class="stat">BS</td>
@@ -94,16 +130,28 @@
           <td class="stat">D</td>
         </tr>
         {#each rangedWeapons as wargear}
+          {#if isMobile}
+            <tr>
+              <td colspan="6"
+                ><div class="flex flex-col items-baseline gap-0">
+                  <div class="whitespace-nowrap">{wargear.name}</div>
+                  <div class="text-xs text-neutral-300 uppercase">{wargear.description}</div>
+                </div></td
+              >
+            </tr>
+          {/if}
           <tr>
-            <td
-              ><div class="flex flex-row items-baseline gap-3">
-                <div class="whitespace-nowrap">{wargear.name}</div>
-                <div class="text-xs text-neutral-300 uppercase">{wargear.description}</div>
-              </div></td
-            >
+            {#if !isMobile}
+              <td
+                ><div class="flex flex-row items-baseline gap-3">
+                  <div class="whitespace-nowrap">{wargear.name}</div>
+                  <div class="text-xs text-neutral-300 uppercase">{wargear.description}</div>
+                </div></td
+              >
+            {/if}
             <td class="stat">{wargear.range}"</td>
             <td class="stat">{wargear.A}</td>
-            <td class="stat">{wargear.BS_WS}</td>
+            <td class="stat">{wargear.BS_WS !== 'N/A' ? `${wargear.BS_WS}+` : 'N/A'}</td>
             <td class="stat">{wargear.S}</td>
             <td class="stat">{wargear.AP}</td>
             <td class="stat">{wargear.D}</td>
@@ -111,7 +159,9 @@
         {/each}
         <tr><td class="h-4" style="border: none;"></td></tr>
         <tr class="font-bold">
-          <td>Melee Weapons</td>
+          {#if !isMobile}
+            <td>Melee Weapons</td>
+          {/if}
           <td class="stat">Range</td>
           <td class="stat">A</td>
           <td class="stat">BS</td>
@@ -120,16 +170,28 @@
           <td class="stat">D</td>
         </tr>
         {#each meleeWeapons as wargear}
+          {#if isMobile}
+            <tr>
+              <td colspan="6"
+                ><div class="flex flex-col items-baseline gap-0">
+                  <div class="whitespace-nowrap">{wargear.name}</div>
+                  <div class="text-xs text-neutral-300 uppercase">{wargear.description}</div>
+                </div></td
+              >
+            </tr>
+          {/if}
           <tr>
-            <td
-              ><div class="flex flex-row items-baseline gap-3">
-                <div class="whitespace-nowrap">{wargear.name}</div>
-                <div class="text-xs text-neutral-300 uppercase">{wargear.description}</div>
-              </div></td
-            >
+            {#if !isMobile}
+              <td
+                ><div class="flex flex-row items-baseline gap-3">
+                  <div class="whitespace-nowrap">{wargear.name}</div>
+                  <div class="text-xs text-neutral-300 uppercase">{wargear.description}</div>
+                </div></td
+              >
+            {/if}
             <td class="stat">Melee</td>
             <td class="stat">{wargear.A}</td>
-            <td class="stat">{wargear.BS_WS}</td>
+            <td class="stat">{wargear.BS_WS}+</td>
             <td class="stat">{wargear.S}</td>
             <td class="stat">{wargear.AP}</td>
             <td class="stat">{wargear.D}</td>
@@ -143,7 +205,7 @@
     <h2 class="text-xl font-bold">Abilities</h2>
     {#each datasheetAbilities as ability}
       <div class="">
-        <span class="pr-1 font-bold underline">{ability.name}:</span><span>{@html ability.description}</span>
+        <span class="pr-1 font-bold">{ability.name}:</span><span class="text-neutral-300 text-sm">{@html ability.description}</span>
       </div>
     {/each}
   </div>
@@ -166,14 +228,14 @@
   <div class="flex flex-col gap-1 border-2 p-2">
     <h2 class="text-xl font-bold">Unit Composition</h2>
     {#each data.unitComposition as com}
-      <div class="">
+      <div class="text-neutral-300">
         <span>{@html com.description}</span>
       </div>
     {/each}
-    <div>{@html data.datasheet.loadout}</div>
+    <div class="text-neutral-300">{@html data.datasheet.loadout}</div>
     <h2 class="pt-2 text-xl font-bold">Costs</h2>
     {#each data.modelsCost as mc}
-      <div class="">{@html mc.description} - {mc.cost}pts</div>
+      <div class="text-neutral-300">{@html mc.description} - {mc.cost}pts</div>
     {/each}
   </div>
 
@@ -194,29 +256,50 @@
   <div class="flex flex-col gap-2">
     <h2 class="text-xl font-bold">Stratagems</h2>
 
-    <table class="table-fixed">
-      <colgroup>
-        <col width="40%" />
-        <col width="auto" />
-      </colgroup>
-      <tbody>
-        <tr>
-          <td>Name</td>
-          <td>Description</td>
-        </tr>
-        {#each stratagems as s}
+    {#if isMobile}
+      <table class="table-fixed">
+        <colgroup>
+          <col width="auto" />
+        </colgroup>
+        <tbody>
+          {#each stratagems as s}
+            <tr>
+              <td class="">
+                <div class="flex flex-col">
+                  <div class="pt-2">{s.cp_cost}CP {s.name}</div>
+                  <div class="text-neutral-400 pb-2">Detachment: {s.detachment === '' ? 'Core' : s.detachment}</div>
+                  <div class="text-sm text-neutral-300">{@html s.description}</div>
+                </div>
+              </td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    {:else}
+      <table class="table-fixed">
+        <colgroup>
+          <col width="40%" />
+          <col width="auto" />
+        </colgroup>
+        <tbody>
           <tr>
-            <td class="">
-              <div class="flex flex-col">
-                <div class="">{s.cp_cost}CP {s.name}</div>
-                <div class="text-neutral-400">Detachment: {s.detachment === '' ? 'Core' : s.detachment}</div>
-              </div></td
-            >
-            <td class="text-sm">{@html s.description}</td>
+            <td>Name</td>
+            <td>Description</td>
           </tr>
-        {/each}
-      </tbody>
-    </table>
+          {#each stratagems as s}
+            <tr>
+              <td class="">
+                <div class="flex flex-col">
+                  <div class="">{s.cp_cost}CP {s.name}</div>
+                  <div class="text-neutral-400">Detachment: {s.detachment === '' ? 'Core' : s.detachment}</div>
+                </div></td
+              >
+              <td class="text-sm">{@html s.description}</td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    {/if}
   </div>
 </div>
 

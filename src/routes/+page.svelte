@@ -37,7 +37,7 @@
 </svelte:head>
 
 <div class="flex flex-col items-center gap-5">
-  <div class="grid gap-5 md:grid-cols-3">
+  <div class="grid gap-5 grid-cols-2 md:grid-cols-3">
     {#each links as link}
       <a class="flex h-32 w-32 flex-col items-center justify-center border-3 border-white text-center" href={link.url}
         ><div class="flex flex-col items-center justify-center gap-3 text-center">

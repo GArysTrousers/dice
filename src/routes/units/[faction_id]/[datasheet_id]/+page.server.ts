@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ params }) => {
   const wargear = sql.get(`SELECT * FROM datasheets_wargear WHERE datasheet_id = :datasheet_id`, params);
   const unitComposition = sql.get(`SELECT * FROM datasheets_unit_composition WHERE datasheet_id = :datasheet_id`, params);
   const modelsCost = sql.get(`SELECT * FROM datasheets_models_cost WHERE datasheet_id = :datasheet_id`, params);
-  const stratagems = sql.get(`SELECT s.* FROM datasheets_stratagems ds INNER JOIN stratagems s ON s.id = ds.stratagem_id WHERE datasheet_id = :datasheet_id ORDER BY detachment`, params);
+  const stratagems = sql.get(`SELECT s.* FROM datasheets_stratagems ds INNER JOIN stratagems s ON s.id = ds.stratagem_id WHERE datasheet_id = :datasheet_id ORDER BY detachment, name`, params);
   const enhancements = sql.get(`SELECT * FROM datasheets_enhancements WHERE datasheet_id = :datasheet_id`, params);
   const detachmentAbilities = sql.get(`SELECT * FROM datasheets_detachment_abilities WHERE datasheet_id = :datasheet_id`, params);
   const leader = sql.get(`SELECT name, id, faction_id FROM datasheets_leader dl INNER JOIN datasheets d ON d.id = dl.attached_id WHERE leader_id = :datasheet_id`, params);
