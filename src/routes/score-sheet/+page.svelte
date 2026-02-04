@@ -1,6 +1,10 @@
 <script lang="ts">
 </script>
 
+<svelte:head>
+  <title>40k Score Sheet</title>
+</svelte:head>
+
 <div class="font-1 mx-auto flex w-full max-w-3xl flex-col gap-1 bg-white px-10 py-5 text-black">
   <h1 class="text-center text-3xl font-bold">40K Score Sheet</h1>
   <table class="table-score w-full table-fixed">
