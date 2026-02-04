@@ -15,7 +15,7 @@
   <title>{data.datasheet.name} | {data.faction.name}</title>
 </svelte:head>
 
-<div class="flex flex-col gap-5">
+<div class="flex flex-col gap-5 max-w-4xl">
   <div class="flex flex-row items-center gap-3 text-neutral-400">
     <a href="/">Home</a>
     <Fa icon={faChevronRight} />
@@ -28,12 +28,12 @@
     <table class="w-full table-fixed">
       <colgroup>
         <col width="auto" />
-        <col width="50px" />
-        <col width="50px" />
-        <col width="50px" />
-        <col width="50px" />
-        <col width="50px" />
-        <col width="50px" />
+        <col width="55px" />
+        <col width="55px" />
+        <col width="55px" />
+        <col width="55px" />
+        <col width="55px" />
+        <col width="55px" />
       </colgroup>
       <tbody>
         <tr class="font-bold">
@@ -75,11 +75,11 @@
       <colgroup>
         <col width="auto" />
         <col width="80px" />
-        <col width="50px" />
-        <col width="50px" />
-        <col width="50px" />
-        <col width="50px" />
-        <col width="50px" />
+        <col width="55px" />
+        <col width="55px" />
+        <col width="55px" />
+        <col width="55px" />
+        <col width="55px" />
       </colgroup>
       <tbody>
         <tr class="font-bold">
@@ -206,7 +206,7 @@
           <tr>
             <td class="">
               <div class="flex flex-col">
-                <div class="">{s.cp_cost}CP - {s.name}</div>
+                <div class="">{s.cp_cost}CP {s.name}</div>
                 <div class="text-neutral-400">Detachment: {s.detachment === '' ? 'Core' : s.detachment}</div>
               </div></td
             >
