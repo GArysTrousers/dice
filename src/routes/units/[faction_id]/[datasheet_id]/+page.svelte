@@ -6,6 +6,8 @@
   console.log();
   let wargearAbilities = $derived(data.abilities.filter((v) => v.type === 'Wargear'));
   let datasheetAbilities = $derived(data.abilities.filter((v) => v.type === 'Datasheet'));
+  let coreAbilities = $derived(data.commonAbilities.filter((v) => v.type === 'Core'));
+  let factionAbilities = $derived(data.commonAbilities.filter((v) => v.type === 'Faction'));
   let rangedWeapons = $derived(data.wargear.filter((v) => v.type === 'Ranged'));
   let meleeWeapons = $derived(data.wargear.filter((v) => v.type === 'Melee'));
   let stratagems = $derived(data.stratagems.filter((v) => !v.type.match('Boarding Actions – ')));
@@ -205,9 +207,21 @@
     <h2 class="text-xl font-bold">Abilities</h2>
     {#each datasheetAbilities as ability}
       <div class="">
-        <span class="pr-1 font-bold">{ability.name}:</span><span class="text-neutral-300 text-sm">{@html ability.description}</span>
+        <span class="pr-1 font-bold">{ability.name}:</span><span class="text-sm text-neutral-300">{@html ability.description}</span>
       </div>
     {/each}
+    <div class="flex flex-wrap gap-2 items-center">
+      <div>Core:</div>
+      {#each coreAbilities as ability}
+        <div class="text-sm text-neutral-300 underline">{ability.name} {ability.parameter}</div>
+      {/each}
+    </div>
+    <div class="flex flex-wrap gap-2 items-center">
+      <div>Faction:</div>
+      {#each factionAbilities as ability}
+        <div class="text-sm text-neutral-300 underline">{ability.name}</div>
+      {/each}
+    </div>
   </div>
 
   <div class="flex flex-col gap-2 border-2 p-2">
@@ -221,7 +235,7 @@
     <h2 class="text-xl font-bold">Wargear Abilities</h2>
     {#each wargearAbilities as ability}
       <div class="">
-        <span class="pr-1 font-bold underline">{ability.name}:</span><span>{@html ability.description}</span>
+        <span class="pr-1 font-bold">{ability.name}:</span><span class="text-sm">{@html ability.description}</span>
       </div>
     {/each}
   </div>
@@ -267,7 +281,7 @@
               <td class="">
                 <div class="flex flex-col">
                   <div class="pt-2">{s.cp_cost}CP {s.name}</div>
-                  <div class="text-neutral-400 pb-2">Detachment: {s.detachment === '' ? 'Core' : s.detachment}</div>
+                  <div class="pb-2 text-neutral-400">Detachment: {s.detachment === '' ? 'Core' : s.detachment}</div>
                   <div class="text-sm text-neutral-300">{@html s.description}</div>
                 </div>
               </td>
