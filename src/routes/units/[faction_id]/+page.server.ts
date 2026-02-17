@@ -8,6 +8,5 @@ export const load: PageServerLoad = async ({ params }) => {
 
   datasheets = datasheets.map((d) => ({...d, keywords: keywords.filter((k) => (d.id === k.datasheet_id)).map((k) => (k.keyword))}))
 
-  console.log(datasheets[0]);
   return { datasheets, faction };
 };
