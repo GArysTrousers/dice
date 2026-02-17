@@ -9,9 +9,33 @@
   let categories = $derived([
     {
       name: 'Charaters',
-      datasheets: datasheets.filter((v) => v.role === 'Characters')
-    }
-  ])
+      datasheets: datasheets.filter((v) => v.keywords.includes('Character')),
+    },
+    {
+      name: 'Battleline',
+      datasheets: datasheets.filter((v) => v.keywords.includes('Battleline')),
+    },
+    {
+      name: 'Infantry',
+      datasheets: datasheets.filter((v) => v.keywords.includes('Infantry') && !v.keywords.includes('Battleline') && !v.keywords.includes('Character')),
+    },
+    {
+      name: 'Walkers',
+      datasheets: datasheets.filter((v) => v.keywords.includes('Walker') && !v.keywords.includes('Battleline') && !v.keywords.includes('Character')),
+    },
+    {
+      name: 'Vehicles',
+      datasheets: datasheets.filter((v) => v.keywords.includes('Vehicle') && !v.keywords.includes('Aircraft') && !v.keywords.includes('Character') && !v.keywords.includes('Dedicated Transport')),
+    },
+    {
+      name: 'Flyers',
+      datasheets: datasheets.filter((v) => v.keywords.includes('Aircraft') && !v.keywords.includes('Dedicated Transport')),
+    },
+    {
+      name: 'Dedicated Transports',
+      datasheets: datasheets.filter((v) => v.keywords.includes('Dedicated Transport')),
+    },
+  ]);
 </script>
 
 <svelte:head>
@@ -32,56 +56,32 @@
   <div class="">
     <button onclick={() => setSetting('showLegends', !settings.showLegends)}>Show Legends</button>
   </div>
-  <div class="flex flex-col gap-1">
-    <h2 class="text-2xl">Characters</h2>
-    {#each datasheets.filter((v) => v.role === 'Characters') as ds}
-      <div class="">
-        <a href="/units/{data.faction.id}/{ds.id}" class="">{ds.name}</a>
-        {#if ds.source_id > 300}<span class="text-neutral-400">[Legends]</span>{/if}
-<span>{ds.cost}pts</span>
-      </div>
-    {/each}
+  <div class="">
+    <table>
+      <tbody>
+        {#each categories as c}
+          <tr>
+            <td class="text-2xl" colspan="2">{c.name}</td>
+          </tr>
+          {#each c.datasheets as ds}
+            <tr class="text-neutral-200">
+              <td>
+                <div class="">
+                  <a href="/units/{data.faction.id}/{ds.id}" class="">{ds.name}</a>{#if ds.source_id > 300}<span class="text-neutral-400 pl-3">[Legends]</span>{/if}
+                </div>
+              </td>
+              <td>{ds.cost}</td>
+            </tr>
+          {/each}
+          <tr><td class="py-2"></td></tr>
+        {/each}
+      </tbody>
+    </table>
   </div>
-  <div class="flex flex-col gap-1">
-    <h2 class="text-2xl">Battleline</h2>
-    {#each datasheets.filter((v) => v.role === 'Battleline') as ds}
-      <div class="">
-        <a href="/units/{data.faction.id}/{ds.id}" class="">{ds.name}</a>
-        {#if ds.source_id > 300}<span class="text-neutral-400">[Legends]</span>{/if}
-      </div>
-    {/each}
-  </div>
-  <div class="flex flex-col gap-1">
-    <h2 class="text-2xl">Dedicated Transports</h2>
-    {#each datasheets.filter((v) => v.role === 'Dedicated Transports') as ds}
-      <div class="">
-        <a href="/units/{data.faction.id}/{ds.id}" class="">{ds.name}</a>
-        {#if ds.source_id > 300}<span class="text-neutral-400">[Legends]</span>{/if}
-      </div>
-    {/each}
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <h2 class="text-2xl">Other</h2>
-    {#each datasheets.filter((v) => v.role === 'Other') as ds}
-      <div class="">
-        <a href="/units/{data.faction.id}/{ds.id}" class="">{ds.name}</a>
-        {#if ds.source_id > 300}<span class="text-neutral-400">[Legends]</span>{/if}
-      </div>
-    {/each}
-  </div>
-  
-  <div class="flex flex-col gap-1">
-    <h2 class="text-2xl">Fortifications</h2>
-    {#each datasheets.filter((v) => v.role === 'Fortifications') as ds}
-      <div class="">
-        <a href="/units/{data.faction.id}/{ds.id}" class="">{ds.name}</a>
-        {#if ds.source_id > 300}<span class="text-neutral-400">[Legends]</span>{/if}
-      </div>
-    {/each}
-  </div>
-
 </div>
 
 <style>
+  td {
+    padding-right: 20px;
+  }
 </style>
