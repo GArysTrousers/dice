@@ -1,6 +1,7 @@
 <script lang="ts">
   import Fa from 'svelte-fa';
   import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+    import { after } from 'node:test';
   let { data } = $props();
 
   console.log();
@@ -11,6 +12,10 @@
   let rangedWeapons = $derived(data.wargear.filter((v) => v.type === 'Ranged'));
   let meleeWeapons = $derived(data.wargear.filter((v) => v.type === 'Melee'));
   let stratagems = $derived(data.stratagems.filter((v) => !v.type.match('Boarding Actions – ')));
+  let stratagemCategories = $derived(stratagems.filter((v, i, self) => i === self.findIndex((t) => t.detachment_id === v.detachment_id)));
+  let selectedStratagemCategory = $state('');
+
+  console.log(stratagemCategories);
 
   let innerWidth = $state(1080);
   let isMobile = $derived(innerWidth < 768);
@@ -210,13 +215,13 @@
         <span class="pr-1 font-bold">{ability.name}:</span><span class="text-sm text-neutral-300">{@html ability.description}</span>
       </div>
     {/each}
-    <div class="flex flex-wrap gap-2 items-center">
+    <div class="flex flex-wrap items-center gap-2">
       <div>Core:</div>
       {#each coreAbilities as ability}
         <div class="text-sm text-neutral-300 underline">{ability.name} {ability.parameter}</div>
       {/each}
     </div>
-    <div class="flex flex-wrap gap-2 items-center">
+    <div class="flex flex-wrap items-center gap-2">
       <div>Faction:</div>
       {#each factionAbilities as ability}
         <div class="text-sm text-neutral-300 underline">{ability.name}</div>
@@ -270,13 +275,19 @@
   <div class="flex flex-col gap-2">
     <h2 class="text-xl font-bold">Stratagems</h2>
 
+    <div class="flex flex-wrap gap-2">
+      {#each stratagemCategories as sc}
+        <button class="px-1" onclick={()=> (selectedStratagemCategory = sc.sc.detachment_id)}>{sc.detachment_id === '' ? 'Core' : sc.detachment}</button>
+      {/each}
+    </div>
+    
     {#if isMobile}
       <table class="table-fixed">
         <colgroup>
           <col width="auto" />
         </colgroup>
         <tbody>
-          {#each stratagems as s}
+          {#each stratagems.filter((v) => (v.detachment_id === selectedStratagemCategory)) as s}
             <tr>
               <td class="">
                 <div class="flex flex-col">
@@ -300,7 +311,7 @@
             <td>Name</td>
             <td>Description</td>
           </tr>
-          {#each stratagems as s}
+          {#each stratagems.filter((v) => (v.detachment_id === selectedStratagemCategory)) as s}
             <tr>
               <td class="">
                 <div class="flex flex-col">

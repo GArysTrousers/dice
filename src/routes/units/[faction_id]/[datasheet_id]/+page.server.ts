@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ params }) => {
   const leader = sql.get(`SELECT name, id, faction_id FROM datasheets_leader dl INNER JOIN datasheets d ON d.id = dl.attached_id WHERE leader_id = :datasheet_id`, params);
   const ledBy = sql.get(`SELECT name, id, faction_id FROM datasheets_leader dl INNER JOIN datasheets d ON d.id = dl.leader_id WHERE attached_id = :datasheet_id`, params);
   
-  // console.log(commonAbilities);
+  // console.log(stratagems);
   
   return {
     faction,
