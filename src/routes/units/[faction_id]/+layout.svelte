@@ -72,7 +72,7 @@
               <tr class="text-neutral-200">
                 <td>
                   <div class="">
-                    <a href="/units/{data.faction.id}/{ds.id}" class="">{ds.name}</a>{#if ds.source_id > 300}<span class="pl-3 text-neutral-400">[Legends]</span>{/if}
+                    <a href="/units/{data.faction.id}/{ds.id}" class="whitespace-nowrap">{ds.name}</a>{#if ds.source_id > 300}<span class="pl-3 text-neutral-400">[Legends]</span>{/if}
                   </div>
                 </td>
                 <td>{ds.cost}</td>
