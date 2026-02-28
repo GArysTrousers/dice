@@ -1,87 +1,57 @@
 <script lang="ts">
-  import Fa from 'svelte-fa';
-  import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-  import { setSetting, settings } from '$lib/stores.svelte.js';
   let { data } = $props();
+  let selectedDetachmentId = $state(0)
+  let filteredDetachments = $derived(data.detachments.filter((v) => (selectedDetachmentId === 0 || selectedDetachmentId === v.id)))
 
-  let datasheets = $derived(data.datasheets.filter((v) => v.source_id < 300 || settings.showLegends));
-
-  let categories = $derived([
-    {
-      name: 'Charaters',
-      datasheets: datasheets.filter((v) => v.keywords.includes('Character')),
-    },
-    {
-      name: 'Battleline',
-      datasheets: datasheets.filter((v) => v.keywords.includes('Battleline')),
-    },
-    {
-      name: 'Infantry',
-      datasheets: datasheets.filter((v) => v.keywords.includes('Infantry') && !v.keywords.includes('Battleline') && !v.keywords.includes('Character')),
-    },
-    {
-      name: 'Walkers',
-      datasheets: datasheets.filter((v) => v.keywords.includes('Walker') && !v.keywords.includes('Battleline') && !v.keywords.includes('Character')),
-    },
-    {
-      name: 'Vehicles',
-      datasheets: datasheets.filter((v) => v.keywords.includes('Vehicle') && !v.keywords.includes('Aircraft') && !v.keywords.includes('Character') && !v.keywords.includes('Dedicated Transport')),
-    },
-    {
-      name: 'Flyers',
-      datasheets: datasheets.filter((v) => v.keywords.includes('Aircraft') && !v.keywords.includes('Dedicated Transport')),
-    },
-    {
-      name: 'Dedicated Transports',
-      datasheets: datasheets.filter((v) => v.keywords.includes('Dedicated Transport')),
-    },
-  ]);
 </script>
 
-<svelte:head>
-  <title>{data.faction.name}</title>
-</svelte:head>
+<div class="flex flex-wrap gap-2">
+    <button class="px-1" onclick={() => (selectedDetachmentId = 0)}>All</button>
+  {#each data.detachments as d}
+    <button class="px-1" onclick={() => (selectedDetachmentId = d.id)}>{d.name}</button>
+  {/each}
+</div>
 
-<div class="flex flex-col gap-5">
-  <div class="flex flex-row items-center gap-3 text-neutral-400">
-    <a href="/">Home</a>
-    <Fa icon={faChevronRight} />
-    <a href="/units">Factions</a>
-    <Fa icon={faChevronRight} />
-    <a href="/units/{data.faction.id}">{data.faction.name}</a>
-  </div>
-  <div>
-    <h1 class="text-4xl">{data.faction.name}</h1>
-  </div>
-  <div class="">
-    <button onclick={() => setSetting('showLegends', !settings.showLegends)}>Show Legends</button>
-  </div>
-  <div class="">
-    <table>
-      <tbody>
-        {#each categories as c}
-          <tr>
-            <td class="text-2xl" colspan="2">{c.name}</td>
+<div class="flex max-w-5xl flex-col gap-3">
+  <table>
+    <tbody>
+      {#each filteredDetachments as d}
+        <tr class="detachment-row">
+          <td class="pt-5 pb-2 text-xl font-bold underline" colspan="3">{d.name}</td>
+        </tr>
+        <tr class="category-row">
+          <td class="py-3 text-center text-lg font-bold" colspan="3">Enhancements</td>
+        </tr>
+        {#each data.enhancements.filter((v) => v.detachment_id === d.id) as en}
+          <tr class="enhancement-row">
+            <td class="whitespace-nowrap">{en.name}</td>
+            <td>{en.cost}pts</td>
+            <td>{@html en.description}</td>
           </tr>
-          {#each c.datasheets as ds}
-            <tr class="text-neutral-200">
-              <td>
-                <div class="">
-                  <a href="/units/{data.faction.id}/{ds.id}" class="">{ds.name}</a>{#if ds.source_id > 300}<span class="text-neutral-400 pl-3">[Legends]</span>{/if}
-                </div>
-              </td>
-              <td>{ds.cost}</td>
-            </tr>
-          {/each}
-          <tr><td class="py-2"></td></tr>
         {/each}
-      </tbody>
-    </table>
-  </div>
+
+        <tr class="category-row">
+          <td class="py-3 text-center text-lg font-bold" colspan="3">Stratagems</td>
+        </tr>
+        {#each data.stratagems.filter((v) => v.detachment_id === d.id) as en}
+          <tr class="enhancement-row">
+            <td class="whitespace-nowrap">{en.name}</td>
+            <td>{en.cp_cost}cp</td>
+            <td>{@html en.description}</td>
+          </tr>
+        {/each}
+      {/each}
+    </tbody>
+  </table>
 </div>
 
 <style>
-  td {
-    padding-right: 20px;
+  .category-row td {
+    border: solid white 1px;
+  }
+  .enhancement-row td {
+    padding: 5px 10px;
+    border: solid white 1px;
+    vertical-align: top;
   }
 </style>

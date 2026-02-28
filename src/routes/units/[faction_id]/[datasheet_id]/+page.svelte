@@ -1,10 +1,8 @@
 <script lang="ts">
   import Fa from 'svelte-fa';
   import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-    import { after } from 'node:test';
   let { data } = $props();
 
-  console.log();
   let wargearAbilities = $derived(data.abilities.filter((v) => v.type === 'Wargear'));
   let datasheetAbilities = $derived(data.abilities.filter((v) => v.type === 'Datasheet'));
   let coreAbilities = $derived(data.commonAbilities.filter((v) => v.type === 'Core'));
@@ -14,8 +12,7 @@
   let stratagems = $derived(data.stratagems.filter((v) => !v.type.match('Boarding Actions – ')));
   let stratagemCategories = $derived(stratagems.filter((v, i, self) => i === self.findIndex((t) => t.detachment_id === v.detachment_id)));
   let selectedStratagemCategory = $state('');
-
-  console.log(stratagemCategories);
+  let filteredStratagems = $derived(stratagems.filter((v) => (v.detachment_id === selectedStratagemCategory)))
 
   let innerWidth = $state(1080);
   let isMobile = $derived(innerWidth < 768);
@@ -36,19 +33,9 @@
       <Fa icon={faChevronRight} />
       <a href="/units/{data.faction.id}">{data.faction.name}</a>
     </div>
-  {:else}
-    <div class="flex flex-row items-center gap-3 text-neutral-400">
-      <a href="/">Home</a>
-      <Fa icon={faChevronRight} />
-      <a href="/units">Factions</a>
-      <Fa icon={faChevronRight} />
-      <a href="/units/{data.faction.id}">{data.faction.name}</a>
-      <Fa icon={faChevronRight} />
-      <a href="/units/{data.faction.id}/{data.datasheet.id}">{data.datasheet.name}</a>
-    </div>
   {/if}
 
-  <h1 class="text-2xl">{data.datasheet.name}</h1>
+  <h1 class="text-2xl">{data.datasheet.name}{#if data.datasheet.source_id > 300}<span class="pl-3 text-neutral-400">[Legends]</span>{/if}</h1>
   <div class="max-w-4xl">
     <table class="w-full table-fixed">
       <colgroup>
@@ -104,11 +91,6 @@
         {/each}
       </tbody>
     </table>
-  </div>
-
-  <div class="flex flex-col text-neutral-300">
-    <div class="">Keywords:</div>
-    <div class="text-xs">{data.keywords.map((v) => v.keyword).join(', ')}</div>
   </div>
 
   <div class="max-w-4xl">
@@ -171,7 +153,7 @@
           {/if}
           <td class="stat">Range</td>
           <td class="stat">A</td>
-          <td class="stat">BS</td>
+          <td class="stat">WS</td>
           <td class="stat">S</td>
           <td class="stat">AP</td>
           <td class="stat">D</td>
@@ -206,6 +188,11 @@
         {/each}
       </tbody>
     </table>
+  </div>
+
+  <div class="flex flex-col text-neutral-300">
+    <div class="">Keywords:</div>
+    <div class="text-xs">{data.keywords.map((v) => v.keyword).join(', ')}</div>
   </div>
 
   <div class="flex flex-col gap-2 border-2 p-2">
@@ -277,7 +264,7 @@
 
     <div class="flex flex-wrap gap-2">
       {#each stratagemCategories as sc}
-        <button class="px-1" onclick={()=> (selectedStratagemCategory = sc.sc.detachment_id)}>{sc.detachment_id === '' ? 'Core' : sc.detachment}</button>
+        <button class="px-1" onclick={()=> (selectedStratagemCategory = sc.detachment_id)}>{sc.detachment_id === '' ? 'Core' : sc.detachment}</button>
       {/each}
     </div>
     
@@ -287,7 +274,7 @@
           <col width="auto" />
         </colgroup>
         <tbody>
-          {#each stratagems.filter((v) => (v.detachment_id === selectedStratagemCategory)) as s}
+          {#each filteredStratagems as s}
             <tr>
               <td class="">
                 <div class="flex flex-col">
