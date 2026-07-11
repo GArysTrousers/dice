@@ -24,6 +24,10 @@
       datasheets: datasheets.filter((v) => v.keywords.includes('Infantry') && !v.keywords.includes('Battleline') && !v.keywords.includes('Character')),
     },
     {
+      name: 'Mounted',
+      datasheets: datasheets.filter((v) => v.keywords.includes('Mounted') && !v.keywords.includes('Character')),
+    },
+    {
       name: 'Walkers',
       datasheets: datasheets.filter((v) => v.keywords.includes('Walker') && !v.keywords.includes('Battleline') && !v.keywords.includes('Character')),
     },
