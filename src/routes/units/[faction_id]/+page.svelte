@@ -7,7 +7,7 @@
 
 <div class="flex flex-wrap gap-2">
     <button class="px-1" onclick={() => (selectedDetachmentId = 0)}>All</button>
-  {#each data.detachments as d}
+  {#each data.detachments as d (d.name)}
     <button class="px-1" onclick={() => (selectedDetachmentId = d.id)}>{d.name}</button>
   {/each}
 </div>
@@ -15,14 +15,14 @@
 <div class="flex max-w-5xl flex-col gap-3">
   <table>
     <tbody>
-      {#each filteredDetachments as d}
+      {#each filteredDetachments as d (d.name)}
         <tr class="detachment-row">
           <td class="pt-5 pb-2 text-xl font-bold underline" colspan="3">{d.name}</td>
         </tr>
         <tr class="category-row">
           <td class="py-3 text-center text-lg font-bold" colspan="3">Enhancements</td>
         </tr>
-        {#each data.enhancements.filter((v) => v.detachment_id === d.id) as en}
+        {#each data.enhancements.filter((v) => v.detachment_id === d.id) as en (en.id)}
           <tr class="enhancement-row">
             <td class="whitespace-nowrap">{en.name}</td>
             <td>{en.cost}pts</td>
@@ -33,7 +33,7 @@
         <tr class="category-row">
           <td class="py-3 text-center text-lg font-bold" colspan="3">Stratagems</td>
         </tr>
-        {#each data.stratagems.filter((v) => v.detachment_id === d.id) as en}
+        {#each data.stratagems.filter((v) => v.detachment_id === d.id) as en (en.id)}
           <tr class="enhancement-row">
             <td class="whitespace-nowrap">{en.name}</td>
             <td>{en.cp_cost}cp</td>

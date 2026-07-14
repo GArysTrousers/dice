@@ -2,6 +2,7 @@
   import Fa from 'svelte-fa';
   import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
   import { setSetting, settings } from '$lib/stores.svelte.js';
+    import { resolve } from '$app/paths';
   let { data, children } = $props();
 
   let datasheets = $derived(data.datasheets.filter((v) => v.source_id < 300 || settings.showLegends));
@@ -68,15 +69,15 @@
     <div class="">
       <table>
         <tbody>
-          {#each categories as c}
+          {#each categories as c (c.name)}
             <tr>
               <td class="text-2xl" colspan="2">{c.name}</td>
             </tr>
-            {#each c.datasheets as ds}
+            {#each c.datasheets as ds (ds.name)}
               <tr class="text-neutral-200">
                 <td>
                   <div class="">
-                    <a href="/units/{data.faction.id}/{ds.id}" class="whitespace-nowrap">{ds.name}</a>{#if ds.source_id > 300}<span class="pl-3 text-neutral-400">[Legends]</span>{/if}
+                    <a href={resolve(`/units/${data.faction.id}/${ds.id}`)} class="whitespace-nowrap">{ds.name}</a>{#if ds.source_id > 300}<span class="pl-3 text-neutral-400">[Legends]</span>{/if}
                   </div>
                 </td>
                 <td>{ds.cost}</td>

@@ -47,7 +47,7 @@
   <div class="border-l-4 border-y-4 w-4 -mb-3"></div>
   <div class="flex w-48 flex-col gap-1">
     <h3>To Hit</h3>
-    {#each rolls as roll}
+    {#each rolls as roll (roll)}
       <button
         class="{options.toHit.roll === roll ? 'active' : ''}"
         onclick={() => {
@@ -66,7 +66,7 @@
   </div>
   <div class="flex w-48 flex-col gap-1">
     <h3>To Wound</h3>
-    {#each rolls as roll}
+    {#each rolls as roll (roll)}
       <button
         class={options.toWound.roll === roll ? 'active' : ''}
         onclick={() => {
@@ -81,7 +81,7 @@
   </div>
   <div class="flex w-48 flex-col gap-1">
     <h3>To Save</h3>
-    {#each rolls as roll}
+    {#each rolls as roll (roll)}
       <button
         class={options.toSave.roll === roll ? 'active' : ''}
         onclick={() => {

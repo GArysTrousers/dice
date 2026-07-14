@@ -21,7 +21,7 @@
         <td colspan="2"></td>
         <td colspan="2"></td>
       </tr>
-      {#each [1, 2, 3, 4, 5] as turn}
+      {#each [1, 2, 3, 4, 5] as turn (turn)}
         <tr>
           <th colspan="5" class="bg-cyan-700 py-0 font-bold text-white">Turn {turn}</th>
         </tr>
@@ -78,7 +78,7 @@
         <td>2</td>
         <td>Bonus</td>
       </tr>
-      {#each [1, 2, 3, 4, 5] as turn}
+      {#each [1, 2, 3, 4, 5] as turn (turn)}
         <tr>
           <td class="text-center">{turn}</td>
           <td style="border-left: solid black 2px;"></td>

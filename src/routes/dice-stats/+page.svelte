@@ -18,7 +18,7 @@
     <button class="md" onclick={reset}>Reset</button>
   </div>
   <div class="flex flex-col gap-7">
-    {#each profiles as p}
+    {#each profiles as p (p)}
       <Profile options={p}></Profile>
     {/each}
   </div>

@@ -61,7 +61,7 @@
           <td class="stat">Ld</td>
           <td class="stat">OC</td>
         </tr>
-        {#each data.models as model}
+        {#each data.models as model (model.id)}
           {#if isMobile}
             <tr>
               <td colspan="6">
@@ -118,7 +118,7 @@
           <td class="stat">AP</td>
           <td class="stat">D</td>
         </tr>
-        {#each rangedWeapons as wargear}
+        {#each rangedWeapons as wargear (wargear.name)}
           {#if isMobile}
             <tr>
               <td colspan="6"
@@ -158,7 +158,7 @@
           <td class="stat">AP</td>
           <td class="stat">D</td>
         </tr>
-        {#each meleeWeapons as wargear}
+        {#each meleeWeapons as wargear (wargear.name)}
           {#if isMobile}
             <tr>
               <td colspan="6"
@@ -197,20 +197,20 @@
 
   <div class="flex flex-col gap-2 border-2 p-2">
     <h2 class="text-xl font-bold">Abilities</h2>
-    {#each datasheetAbilities as ability}
+    {#each datasheetAbilities as ability (ability.name)}
       <div class="">
         <span class="pr-1 font-bold">{ability.name}:</span><span class="text-sm text-neutral-300">{@html ability.description}</span>
       </div>
     {/each}
     <div class="flex flex-wrap items-center gap-2">
       <div>Core:</div>
-      {#each coreAbilities as ability}
+      {#each coreAbilities as ability (ability.name)}
         <div class="text-sm text-neutral-300 underline">{ability.name} {ability.parameter}</div>
       {/each}
     </div>
     <div class="flex flex-wrap items-center gap-2">
       <div>Faction:</div>
-      {#each factionAbilities as ability}
+      {#each factionAbilities as ability (ability.name)}
         <div class="text-sm text-neutral-300 underline">{ability.name}</div>
       {/each}
     </div>
@@ -218,14 +218,14 @@
 
   <div class="flex flex-col gap-2 border-2 p-2">
     <h2 class="text-xl font-bold">Wargear Options</h2>
-    {#each data.options as o}
+    {#each data.options as o (o.description)}
       <div class="text-sm">{@html o.description}</div>
     {/each}
   </div>
 
   <div class="flex flex-col gap-2 border-2 p-2">
     <h2 class="text-xl font-bold">Wargear Abilities</h2>
-    {#each wargearAbilities as ability}
+    {#each wargearAbilities as ability (ability.name)}
       <div class="">
         <span class="pr-1 font-bold">{ability.name}:</span><span class="text-sm">{@html ability.description}</span>
       </div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { resolve } from '$app/paths';
   import { faFileLines, faAddressCard, faHourglass } from '@fortawesome/free-regular-svg-icons';
   import { faDice, faBookSkull } from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa';
@@ -38,7 +39,7 @@
 
 <div class="flex flex-col items-center gap-5">
   <div class="grid gap-5 grid-cols-2 md:grid-cols-3">
-    {#each links as link}
+    {#each links as link (link.lable)}
       <a class="flex h-32 w-32 flex-col items-center justify-center border-3 border-white text-center" href={link.url}
         ><div class="flex flex-col items-center justify-center gap-3 text-center">
           <Fa class="text-5xl" icon={link.icon} />
