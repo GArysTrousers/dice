@@ -298,7 +298,7 @@
             <td>Name</td>
             <td>Description</td>
           </tr>
-          {#each stratagems.filter((v) => (v.detachment_id === selectedStratagemCategory)) as s}
+          {#each stratagems.filter((v) => (v.detachment_id === selectedStratagemCategory)) as s (s)}
             <tr>
               <td class="">
                 <div class="flex flex-col">
