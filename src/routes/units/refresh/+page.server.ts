@@ -30,7 +30,7 @@ const dataFiles = [
 
 export const load: PageServerLoad = async ({ fetch }) => {
   for (const file of dataFiles) {
-    let res = await fetch(`${baseUrl}/${file}`);
+    const res = await fetch(`${baseUrl}/${file}`);
     await writeFile(`${DATA_DIR}/wahapedia/${file}`, await res.text());
     console.log('done:', file);
   }

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { resolve } from '$app/paths';
   import { faFileLines, faAddressCard, faHourglass } from '@fortawesome/free-regular-svg-icons';
   import { faDice, faBookSkull } from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa';

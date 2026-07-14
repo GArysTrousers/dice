@@ -233,28 +233,28 @@
   </div>
   <div class="flex flex-col gap-1 border-2 p-2">
     <h2 class="text-xl font-bold">Unit Composition</h2>
-    {#each data.unitComposition as com}
+    {#each data.unitComposition as com (com)}
       <div class="text-neutral-300">
         <span>{@html com.description}</span>
       </div>
     {/each}
     <div class="text-neutral-300">{@html data.datasheet.loadout}</div>
     <h2 class="pt-2 text-xl font-bold">Costs</h2>
-    {#each data.modelsCost as mc}
+    {#each data.modelsCost as mc (mc)}
       <div class="text-neutral-300">{@html mc.description} - {mc.cost}pts</div>
     {/each}
   </div>
 
   <div class="flex flex-col gap-0 border-2 p-2">
     <h2 class="text-xl font-bold">Leader</h2>
-    {#each data.leader as bodyguard}
+    {#each data.leader as bodyguard (bodyguard)}
       <a href="/units/{bodyguard.faction_id}/{bodyguard.id}">{bodyguard.name}</a>
     {/each}
   </div>
 
   <div class="flex flex-col gap-0 border-2 p-2">
     <h2 class="text-xl font-bold">Led By</h2>
-    {#each data.ledBy as leader}
+    {#each data.ledBy as leader (leader)}
       <a href="/units/{leader.faction_id}/{leader.id}">{leader.name}</a>
     {/each}
   </div>
@@ -263,7 +263,7 @@
     <h2 class="text-xl font-bold">Stratagems</h2>
 
     <div class="flex flex-wrap gap-2">
-      {#each stratagemCategories as sc}
+      {#each stratagemCategories as sc (sc)}
         <button class="px-1" onclick={()=> (selectedStratagemCategory = sc.detachment_id)}>{sc.detachment_id === '' ? 'Core' : sc.detachment}</button>
       {/each}
     </div>
@@ -274,7 +274,7 @@
           <col width="auto" />
         </colgroup>
         <tbody>
-          {#each filteredStratagems as s}
+          {#each filteredStratagems as s (s)}
             <tr>
               <td class="">
                 <div class="flex flex-col">
